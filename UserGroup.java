@@ -7,11 +7,13 @@ public class UserGroup extends User implements Component, Subject, Observer {
     private List<Component> members;
     private List<Observer> observers;
 
+    private long creationTime; // Add creationTime attribute
     public UserGroup(String id) {
 
         this.id = id;
         this.members = new ArrayList<>();
         this.observers = new ArrayList<>();
+        this.creationTime = System.currentTimeMillis();
     }
 
     // Subject methods for managing observers
@@ -73,6 +75,9 @@ public class UserGroup extends User implements Component, Subject, Observer {
             }
             notifyObservers();
         }
+    }
+    public long getCreationTime() {
+        return creationTime;
     }
 
     @Override

@@ -5,10 +5,9 @@ import javax.swing.tree.TreePath;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Arrays;
-import java.util.HashMap;
+import java.text.SimpleDateFormat;
+import java.util.*;
 import java.util.List;
-import java.util.Map;
 
 public class MiniTwitterAdminPanel {
 
@@ -43,6 +42,11 @@ public class MiniTwitterAdminPanel {
         }
         // Call the method that adds the user to the tree with the determined parent
         addUserToTree(user, parent);
+        // Convert timestamp from milliseconds to a Date object
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date = new Date(user.getCreationTime());
+        String formattedDate = dateFormat.format(date);
+        System.out.println("Time creation of user: " + formattedDate);
     }
 
 
@@ -76,6 +80,10 @@ public class MiniTwitterAdminPanel {
     public void addUserGroupToSystem(UserGroup group) {
         allUsers.put(group.getName(), group); // Add the group to the allUsers map
         addUserGroupToTree(group); // Add the group to the JTree without specifying a parent node
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date = new Date(group.getCreationTime());
+        String formattedDate = dateFormat.format(date);
+        System.out.println("Time creation of Group: " + formattedDate);
     }
 
 
@@ -167,6 +175,7 @@ public class MiniTwitterAdminPanel {
                 } else {
                     JOptionPane.showMessageDialog(frame, "Invalid User ID or User ID already exists.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
+
             }
         });
 

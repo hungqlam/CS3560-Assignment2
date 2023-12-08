@@ -3,6 +3,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.Component;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class UserView extends JFrame {
     private User user; // The user this view represents
 
@@ -15,7 +18,7 @@ public class UserView extends JFrame {
     private JLabel followedUsersCountLabel; // To display the count of followed users
     // Declaration of the class field
     private JScrollPane followedUsersScrollPane;
-
+    private long creationTime;
     public UserView(User user) {
         this.user = user;
         initializeComponents();
@@ -80,6 +83,15 @@ public class UserView extends JFrame {
         setLocationRelativeTo(null);
         setVisible(true);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+        // Create a label to display the creation time
+        JLabel creationTimeLabel = new JLabel("Creation Time: " + user.getCreationTime());
+        // Define the top panel
+        JPanel topPanel = new JPanel();
+        topPanel.setLayout(new BorderLayout());
+
+        // Add the label to the top panel (or any other suitable location in your UI)
+        topPanel.add(creationTimeLabel, BorderLayout.WEST);
     }
     private void postTweet() {
         String tweet = tweetInput.getText().trim();
@@ -100,6 +112,11 @@ public class UserView extends JFrame {
             }
             tweetArea.setText(tweetsContent.toString());
         }
+        this.creationTime = System.currentTimeMillis();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date = new Date(this.getCreationTime());
+        String formattedDate = dateFormat.format(date);
+        System.out.println("Latest Updated Time: " + formattedDate);
     }
 
     private void updateNewsFeedArea() {
@@ -161,6 +178,8 @@ public class UserView extends JFrame {
         });
     }
 
-
+    public long getCreationTime() {
+        return creationTime;
+    }
 
 }

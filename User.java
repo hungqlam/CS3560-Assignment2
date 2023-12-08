@@ -1,6 +1,8 @@
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Date;
 
 public  class User implements Component, Subject, Observer {
     private String id; // Unique identifier for the user
@@ -10,6 +12,7 @@ public  class User implements Component, Subject, Observer {
     private List<String> tweets = new ArrayList<>(); // Initialize the list
     private List<User> followings = new ArrayList<>(); // Initialize the list
     private List<User> followedUsers;
+    private long creationTime;
     public User(String id) {
         this.id = id;
         this.followers = new ArrayList<>();
@@ -19,6 +22,8 @@ public  class User implements Component, Subject, Observer {
         this.newsFeed = new ArrayList<>(); // Initialize the news feed
         this.newsFeed = new ArrayList<>();
         this.followedUsers = new ArrayList<>();
+        this.creationTime = System.currentTimeMillis();
+
     }
 
     public User() {
@@ -171,6 +176,9 @@ public  class User implements Component, Subject, Observer {
         String[] feedArray = new String[newsFeed.size()];
         return newsFeed.toArray(feedArray);
     }
+    public long getCreationTime() {
+        return creationTime;
+    }
 
     // Method to get the followed users in an array form
     public User[] getFollowedUsers() {
@@ -188,3 +196,4 @@ public  class User implements Component, Subject, Observer {
         followedUsers.add(user);
     }
 }
+
